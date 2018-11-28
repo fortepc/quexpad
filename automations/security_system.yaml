@@ -82,3 +82,209 @@
         - switch.bedroom_siren
     - service: light.turn_on #turn on all lights
     - service: script.1527648825148 #start the cops on the porch light loop
+      
+###############
+#
+#       Alarm System 
+#    Triggering Routine(s) 
+#
+###############
+
+#If any if the doors or window sensors open, trigger the alarm, and send notifications of how it happened.
+- id: 'doors_and_windows_trigger_alarm'
+  alias: Door and Window Triggers Alarm
+  initial_state: true #This makes this automation on by default, so on reboot it will turn itself on.
+  hide_entity: true #This makes it so the automation doesn't show up in the UI. You will have to go to the states page to toggle this automation, or toggle it via an automation
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.back_door
+    - binary_sensor.bathroom_window
+    - binary_sensor.bedroom_window1
+    - binary_sensor.bedroom_window2
+    - binary_sensor.front_door
+    - binary_sensor.kitchen_window1
+    - binary_sensor.kitchen_window2
+    - binary_sensor.kitchen_window3
+    - binary_sensor.livingroom_window1
+    - binary_sensor.livingroom_window2
+    to: 'on'
+  condition:  #only trigger automation if the alarm is armed, or already triggered. 
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: alarm_control_panel.ha_alarm
+      state: armed_home
+    - condition: state
+      entity_id: alarm_control_panel.ha_alarm
+      state: armed_away
+    - condition: state
+      entity_id: alarm_control_panel.ha_alarm
+      state: triggered
+    #- condition: state
+    #  entity_id: alarm_control_panel.ha_alarm
+    ## Need to figure out how to make it so this will trigger if alarm is pending from armed to triggered. 
+  action:
+  - service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.ha_alarm
+  - service: mqtt.publish
+    data_template:
+      payload_template: 'The {{ states[trigger.entity_id.split(".")[0]][ trigger.entity_id.split(".")[1]].name}} just opened! Disarm the Alarm immediatly before police are called.'
+      topic: livingroom_alarmpanel/voice
+  - service: mqtt.publish
+    data_template:
+      payload_template: 'The {{ states[trigger.entity_id.split(".")[0]][ trigger.entity_id.split(".")[1]].name}} just opened! Disarm the Alarm immediatly before police are called.'
+      topic: bedroom_alarmpanel/voice
+  - service: mqtt.publish
+    data_template:
+      payload_template: 'The {{ states[trigger.entity_id.split(".")[0]][ trigger.entity_id.split(".")[1]].name}} just opened! Disarm the Alarm immediatly before police are called.'
+      topic: bathroom_alarmpanel/voice
+  ### Add action to speak warning on the media_player.everything speaker group. Using the same message as the mqtt voice messages, potentially replace those messages with a TTS now that we have a siren. Let alarm panel voice prompts be something else.
+  - service: notify.discord
+    data:
+      target: !secret discord_ha-security-feed #channel id to put the notification
+      message: An alarm has been Triggered! #fallback message if the template fails. 
+    data_template:
+      message: An alarm has been triggered by the {{ states[trigger.entity_id.split(".")[0]][
+        trigger.entity_id.split(".")[1]].name }} opening!
+
+#Motion Sensors to trigger alarm. This is disabled by default because the robo vac was triggering the alarm. Long term plan is to have the robo vac report when it's running and temporarily turn off this automation.
+- alias: Motion Sensors to Trigger Alarm
+  initial_state: 'off'
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.bathroom_multisensor_alarm_level
+    - sensor.bathroom_shower_multisensor_alarm_level
+    - sensor.bedroom_multisensor_alarm_level
+    - sensor.kitchen_multisensor_alarm_level
+    - sensor.livingroom_multisensor_alarm_level
+    to: '255'
+  condition:
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: alarm_control_panel.ha_alarm
+      state: armed_away
+    - condition: state
+      entity_id: alarm_control_panel.ha_alarm
+      state: triggered
+    #- condition: state
+    #  entity_id: alarm_control_panel.ha_alarm
+    ## Need to figure out how to make it so this will trigger if alarm is pending from armed to triggered. 
+  action:
+  - service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.ha_alarm
+  - service: mqtt.publish
+    data_template:
+      payload_template: 'The {{ states[trigger.entity_id.split(".")[0]][ trigger.entity_id.split(".")[1]].name}} just opened! Disarm the Alarm immediatly before police are called.'
+      topic: livingroom_alarmpanel/voice
+  - service: mqtt.publish
+    data_template:
+      payload_template: 'The {{ states[trigger.entity_id.split(".")[0]][ trigger.entity_id.split(".")[1]].name}} just opened! Disarm the Alarm immediatly before police are called.'
+      topic: bedroom_alarmpanel/voice
+  - service: mqtt.publish
+    data_template:
+      payload_template: 'The {{ states[trigger.entity_id.split(".")[0]][ trigger.entity_id.split(".")[1]].name}} just opened! Disarm the Alarm immediatly before police are called.'
+      topic: bathroom_alarmpanel/voice
+  ### Add action to speak warning on the media_player.everything speaker group. Using the same message as the mqtt voice messages, potentially replace those messages with a TTS now that we have a siren. Let alarm panel voice prompts be something else.
+  - service: notify.discord
+    data:
+      target: !secret discord_ha-security-feed #channel id to put the notification
+      message: An alarm has been Triggered! #fallback message if the template fails. 
+    data_template:
+      message: 'An alarm has been triggered by the {{ states[trigger.entity_id.split(".")[0]][trigger.entity_id.split(".")[1]].name }} opening!'
+
+###################
+#
+#       Door & Window
+#           Chimes
+#
+##################
+
+### When Doors or Windows open, send a tts notification to the alarm panels
+#- id: 'windows_door_open_tts_notification'
+#  alias: Windows & Doors Open triggers TTS notification to Alarm Panel
+#  trigger: 
+#    - platform: state
+#      entity_id:
+#      - binary_sensor.back_door
+#      - binary_sensor.bathroom_window
+#      - binary_sensor.bedroom_window1
+#      - binary_sensor.bedroom_window2
+#      - binary_sensor.front_door
+#      - binary_sensor.kitchen_window1
+#      - binary_sensor.kitchen_window2
+#      - binary_sensor.kitchen_window3
+#      - binary_sensor.livingroom_window1
+#      - binary_sensor.livingroom_window2
+#      to: 'on'
+#  condition: []
+#  action:
+#  - service: mqtt.publish
+#    data:
+#      payload_template: The {{ states[trigger.entity_id.split(".")[0]][ trigger.entity_id.split(".")[1]].name
+#        }} opened
+#      topic: livingroom_alarmpanel/voice
+#  - service: mqtt.publish
+#    data:
+#      payload_template: The {{ states[trigger.entity_id.split(".")[0]][ trigger.entity_id.split(".")[1]].name
+#        }} opened
+#      topic: bedroom_alarmpanel/voice
+#  - service: mqtt.publish
+#    data:
+#      payload_template: The {{ states[trigger.entity_id.split(".")[0]][ trigger.entity_id.split(".")[1]].name
+#        }} opened
+#      topic: bathroom_alarmpanel/voice
+
+### Front Door open plays a door chime.
+#- alias: Front Door Chime
+#  trigger:
+#    - platform: state
+#      entity_id: binary_sensor.front_door
+#      to: 'on'
+#  condition: []
+#  action: []
+
+### Back Door open plays a door chime
+#- alias: Back Door Chime
+#  trigger:
+#    - platform: state
+#      entity_id: binary_sensor.back_door
+#      to: 'on'
+#  condition: []
+#  action: []
+
+### Window open plays a chime
+#- alias: Windows Chime
+#  trigger: 
+#    - platform: state
+#      entity_id:
+#      - binary_sensor.back_door
+#      - binary_sensor.bathroom_window
+#      - binary_sensor.bedroom_window1
+#      - binary_sensor.bedroom_window2
+#      - binary_sensor.front_door
+#      - binary_sensor.kitchen_window1
+#      - binary_sensor.kitchen_window2
+#      - binary_sensor.kitchen_window3
+#      - binary_sensor.livingroom_window1
+#      - binary_sensor.livingroom_window2
+#      to: 'on'
+#  condition: []
+#  action: []  #action needs to check a list of inputs and set the settings with `zwave.set_config_parameter` based on them, then turn the siren's switch
+################ input_boolean.alarm_strobe
+################ input_boolean.backdoor_chime_strobe
+################ input_boolean.frontdoor_chime_strobe
+################ input_boolean.windows_chime_strobe
+################ input_select.alarm_siren_sound
+################ input_select.backdoor_chime_sound
+################ input_select.frontdoor_chime_sound
+################ input_select.windows_chime_sound
+################ input_number.backdoor_chime_length
+################ input_number.backdoor_chime_volume
+################ input_number.frontdoor_chime_length
+################ input_number.frontdoor_chime_volume
+################ input_number.homealarmvolume
+################ input_number.windows_chime_length
+################ input_number.windows_chime_volume
