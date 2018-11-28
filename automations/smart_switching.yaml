@@ -1,0 +1,66 @@
+##
+##
+##  This file is for keeping smart bulbs and smart switches in sync where a switch needs to indirectly control the light bulb. 
+##
+## 
+##
+##
+##
+##
+##
+
+### Bathroom Cubby ###
+# If the bathroom cubby switch turns on, turn on th
+- id: '1536815425179'
+  alias: 'Bathroom Cubby Off-2-On (switch-2-light) '
+  trigger:
+  - entity_id: switch.bathroom_cubby
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: light.bathroom_accent
+    service: light.turn_on
+# Switch Side Off
+- id: '1536878581048'
+  alias: 'Bathroom Cubby On-2-Off (switch-2-light) '
+  trigger:
+  - entity_id: switch.bathroom_cubby
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      entity_id: light.bathroom_accent
+    service: light.turn_off
+# Light Side On
+- id: '1536878894867'
+  alias: 'Bathroom Cubby Off-2-On (light-2-switch) '
+  trigger:
+  - entity_id: light.bathroom_accent
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - delay: 00:00:05
+  - data:
+      entity_id: switch.bathroom_cubby
+    service: switch.turn_on
+    # Light Side Off
+- id: '1536879081822'
+  alias: 'Bathroom Cubby On-2-Off (light-2-switch) '
+  trigger:
+  - entity_id: light.bathroom_accent
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - delay: 00:00:05
+  - data:
+      entity_id: switch.bathroom_cubby
+    service: switch.turn_off
