@@ -1,0 +1,84 @@
+#######
+#
+#         Alarm System
+#     State Change Routines
+#
+#######
+
+# Automation will trigger when the alarm changes to armed home, and will lock all the doors
+- id: 'arm_home_routine'
+  initial_state: true
+  hide_entity: true
+  alias: Alarm Armed Home Routine
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.ha_alarm
+    to: armed_home
+  condition: []
+  action:
+  - service: lock.lock
+
+# Automation will trigger when alarm changes to armed away, and will lock all the doors
+- id: 'arm_away_routine'
+  initial_state: true
+  hide_entity: true
+  alias: Alarm Armed Away Routine
+  trigger:
+  - entity_id: alarm_control_panel.ha_alarm
+    to: armed_away
+    platform: state
+  - entity_id: alarm_control_panel.ha_alarm
+    to: armed_home
+    platform: state
+  condition: []
+  action:
+  - service: lock.lock
+
+# Automation will trigger when alarm disarms after being triggered
+# actions turn off the sirens, the cops on the porch scripts, and resets the porch lights
+- id: 'trigger_disarm_routine'
+  initial_state: true
+  hide_entity: true
+  alias: Alarm Trigger Disarm Routine
+  trigger:
+  - entity_id: alarm_control_panel.ha_alarm
+    from: triggered
+    platform: state
+  condition: []
+  action:
+  - service: switch.turn_off #turn off the sirens
+    data:
+      entity_id:
+      - switch.bedroom_siren
+      - switch.livingroom_siren
+  - service: script.turn_off #turn off both scripts at the same time to stop the loop
+    data:
+      entity_id:
+      - script.1527648825148
+      - script.1527648844985
+  - service: light.turn_on #set light to white so that it's not blue or red when it gets turned back on later
+    data:
+      color_name: white
+      entity_id: light.outside_frontporch
+  - delay: '00:00:01' #wait a second before turning it back off, this is to mitigate the light loop issue. 
+  - service: light.turn_off #turn front porch light back off
+    data:
+      entity_id: light.outside_frontporch
+
+# Automation triggered by alarm triggering, turns on the sirens, turns on all the lights 
+- alias: Alarm Trigger after Pending
+  initial_state: true #This makes this automation on by default, so on reboot it will turn itself on.
+  hide_entity: true #This makes it so the automation doesn't show up in the UI. You will have to go to the states page to toggle this automation, or toggle it via an automation
+  trigger:
+  -  platform: state
+     entity_id: alarm_control_panel.ha_alarm
+     from: pending   #only trigger when it moves from pending (ie: waiting for code to disarm before triggering. Needs testing to make sure it will still trigger when moving from armed home to triggered, have to do it this way to prevent the alarm from triggering during the pending time)
+     to: triggered 
+  action: 
+    - service: switch.turn_on #turn on the sirens
+      data: 
+        entity_id: 
+        - switch.livingroom_siren
+        - switch.bedroom_siren
+    - service: light.turn_on #turn on all lights
+    - service: script.1527648825148 #start the cops on the porch light loop
