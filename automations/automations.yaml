@@ -1,0 +1,19 @@
+##
+##
+##  This file is for generic catch all notifications. Automations may start here them move to other automation files. 
+##
+## 
+##
+##
+##
+##
+##
+
+## This just requests Google Assistant to sync anytime home assistant starts, eliminating the need to do "Okay Google: Sync Device"
+- id: 'on-boot-sync-google-assistant'
+  alias: On boot, Sync Google Assistant
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+    service: google_assistant.request_sync
