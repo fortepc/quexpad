@@ -1,0 +1,144 @@
+#########################################################################
+#                                                                       #
+#                               Humidity                                #
+#                                                                       #
+#########################################################################
+
+# Bathroom
+- id: '1527210135571'
+  alias: Bathroom Humidity >70%, turn on vent for 00:10:00
+  trigger:
+  - above: '70'
+    entity_id: sensor.bathroom_4in1_relative_humidity
+    platform: numeric_state
+  condition: []
+  action:
+  - data:
+      entity_id: fan.bathroom_vent
+    service: fan.turn_on
+  - delay: 00:10:00
+  - data:
+      entity_id: fan.bathroom_vent
+    service: fan.turn_off
+
+# Shower
+- id: '1539992212156'
+  alias: Bathroom Shower Humidity >70%, turn on vent for 00:10:00
+  trigger:
+  - above: '70'
+    entity_id: sensor.shower_4in1_relative_humidity
+    platform: numeric_state
+  condition: []
+  action:
+  - alias: ''
+    data:
+      entity_id: fan.shower_vent
+    service: fan.turn_on
+  - delay: 00:10:00
+  - data:
+      entity_id: fan.shower_vent
+    service: fan.turn_off
+    
+#########################################################################
+#                                                                       #
+#                           Bathroom Door                               #
+#                                                                       #
+#########################################################################
+
+# Closes
+- id: '1529290690285'
+  alias: Bathroom Door Closes
+  trigger:
+  - entity_id: binary_sensor.bathroom_door
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      entity_id: script.1529290313019
+    service: script.turn_off
+  - data: {}
+    service: script.1529290313019
+  - data:
+      entity_id: light.bathroom_overhead
+    service: light.turn_on
+
+# Opens
+- id: '1529291468640'
+  alias: Bathroom Door Opens
+  trigger:
+  - entity_id: binary_sensor.bathroom_door
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - delay: 00:00:10
+  - data:
+      entity_id: light.bathroom_overhead
+    service: light.turn_off
+    
+#########################################################################
+#                                                                       #
+#                         Shower Motion Sensor                          #
+#                                                                       #
+#########################################################################
+
+# No Motion
+- id: 'no_motion_in_shower'
+  alias: No Motion in Shower
+  trigger:
+  - entity_id: sensor.shower_4in1_alarm_level
+    from: '255'
+    platform: state
+    to: '0'
+  condition: []
+  action:
+  - delay: 00:05:00
+  - data:
+      entity_id: light.shower
+    service: light.turn_off
+    
+# Motion
+- id: 'motion_in_shower'
+  alias: Motion in Shower Locks the Door
+  trigger:
+  - entity_id: sensor.shower_4in1_alarm_level
+    from: '0'
+    platform: state
+    to: '255'
+  condition: []
+  action:
+  - data:
+      entity_id: lock.back_door_deadbolt
+    service: lock.lock
+  - data:
+      entity_id: lock.front_door_deadbolt
+    service: lock.lock
+    
+- alias: Motion in Shower Turns on the light
+  trigger:
+  - entity_id: sensor.shower_4in1_alarm_level
+    from: '0'
+    platform: state
+    to: '255'
+  condition: []
+  action:
+  - data:
+      entity_id: light.shower
+    service: light.turn_on
+        
+# Motion Auto On
+- id: 'motion_in_shower_reactivate'
+  alias: Motion in the Shower Notification Turns Off, turn it back on
+  trigger:
+  - entity_id: automation.motion_in_shower
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - delay: 02:00:00
+  - data:
+      entity_id: automation.motion_in_shower
+    service: automation.turn_on
