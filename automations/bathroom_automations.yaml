@@ -4,8 +4,8 @@
 #                                                                       #
 #########################################################################
 
-# Bathroom
-- id: '1527210135571'
+# If Bathroom humidity is above 70% turn bathroom vent on for 10 minutes. Long term goal is to have this automation linked to an input number, where users can specify the humidity level that triggers the automation. https://www.home-assistant.io/docs/automation/trigger/#template-trigger
+- id: 'bathroom_humidity_trigger_vent'
   alias: Bathroom Humidity >70%, turn on vent for 00:10:00
   trigger:
   - above: '70'
@@ -21,8 +21,8 @@
       entity_id: fan.bathroom_vent
     service: fan.turn_off
 
-# Shower
-- id: '1539992212156'
+# Shower humidity to trigger shower vent. Long term goal is to have this automation linked to an input number, where users can specify the humidity level that triggers the automation. https://www.home-assistant.io/docs/automation/trigger/#template-trigger
+- id: 'bathroom_humidity_trigger_vent'
   alias: Bathroom Shower Humidity >70%, turn on vent for 00:10:00
   trigger:
   - above: '70'
@@ -45,7 +45,7 @@
 #                                                                       #
 #########################################################################
 
-# Closes
+# When the bathroom door closes, turn off the bathroom fan for 10 minutes script if it's on, then turn it back on, that way anytime the bathroom door closes it can reset that script's 10 minute timer
 - id: '1529290690285'
   alias: Bathroom Door Closes
   trigger:
@@ -56,15 +56,15 @@
   condition: []
   action:
   - data:
-      entity_id: script.1529290313019
+      entity_id: script.1529290313019 #the script that turns the bathroom vents on for 10 minutes, then turns them back off
     service: script.turn_off
   - data: {}
-    service: script.1529290313019
+    service: script.1529290313019 #same script as above
   - data:
       entity_id: light.bathroom_overhead
     service: light.turn_on
 
-# Opens
+# When the bathroom door opens, wait 10 seconds then turn off the light
 - id: '1529291468640'
   alias: Bathroom Door Opens
   trigger:
@@ -85,7 +85,7 @@
 #                                                                       #
 #########################################################################
 
-# No Motion
+# If there is no motion in the shower for 5 minutes, turn the shower light off.
 - id: 'no_motion_in_shower'
   alias: No Motion in Shower
   trigger:
@@ -93,15 +93,15 @@
     from: '255'
     platform: state
     to: '0'
+    for: 00:05:00
   condition: []
   action:
-  - delay: 00:05:00
   - data:
       entity_id: light.shower
     service: light.turn_off
     
-# Motion
-- id: 'motion_in_shower'
+# If there is motion in the shower, lock all the doors immediatly.
+- id: 'motion_in_shower_lock_doors'
   alias: Motion in Shower Locks the Door
   trigger:
   - entity_id: sensor.shower_4in1_alarm_level
@@ -110,14 +110,11 @@
     to: '255'
   condition: []
   action:
-  - data:
-      entity_id: lock.back_door_deadbolt
-    service: lock.lock
-  - data:
-      entity_id: lock.front_door_deadbolt
-    service: lock.lock
-    
-- alias: Motion in Shower Turns on the light
+  - service: lock.lock
+
+# If there is motion in the shower, turn on the shower light immeditly    
+- id: 'motion_in_shower_turn_on_light'
+  alias: Motion in Shower Turns on the light
   trigger:
   - entity_id: sensor.shower_4in1_alarm_level
     from: '0'
@@ -131,7 +128,7 @@
         
 # Motion Auto On
 - id: 'motion_in_shower_reactivate'
-  alias: Motion in the Shower Notification Turns Off, turn it back on
+  alias: If Motion in the Shower Automations turn off, turn them back on
   trigger:
   - entity_id: automation.motion_in_shower
     platform: state
@@ -140,5 +137,7 @@
   action:
   - delay: 02:00:00
   - data:
-      entity_id: automation.motion_in_shower
+      entity_id: 
+        - automation.motion_in_shower_lock_doors
+        - automation.motion_in_shower_turn_on_light
     service: automation.turn_on
