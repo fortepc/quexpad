@@ -45,12 +45,25 @@
         entity_id: light.bedroom_lamps
       
 
-## Play a Sunrise Video From YouTube On Bedroom TV
-- id: 'sunrise_wakeup'
-  alias: Sunrise Wake-Up
+## Play a Sunrise Video From YouTube On Bedroom TV at 630 am
+- id: '630am_sunrise_video_wakeup'
+  initial_state: false
+  alias: 6:30am Sunrise Wake-Up
   trigger:
     - at: 06:30
       platform: time
+  condition: []
+  action:
+    - service: script.1543509679983
+
+## Play a Sunrise Video From YouTube On Bedroom TV when at sunrise.
+- id: 'sunrise_wakeup_at_sunrise'
+  initial_state: false
+  alias: Sunrise Wake-Up at sunrise
+  trigger:
+    platform: sun
+    # Possible values: sunset, sunrise
+    event: sunrise
   condition: []
   action:
     - service: script.1543509679983
