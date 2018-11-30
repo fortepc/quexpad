@@ -2,8 +2,7 @@
     #  Automations for the Bedroom go here. 
     #
 
-    #When the closet Door opens, turn on the closet light. 
-
+##When the closet Door opens, turn on the closet light. 
 - id: 'closet_door_turns_on_light'
   alias: Closet Door Opens
   trigger:
@@ -17,7 +16,7 @@
       data:
         entity_id: light.bedroom_closet
       
-    #When the closet door closes, turn off the closet light.
+##When the closet door closes, turn off the closet light.
 - id: 'closet_door_turns_off_light'
   alias: Closet Door Closes
   trigger:
@@ -31,6 +30,7 @@
       data:
         entity_id: light.bedroom_closet
 
+##When the bedroom door closes, turn on the bedroom lamps
 - id: 'bedroom_door_turns_on_lamps'
   alias: Bedroom Door Closed
   trigger:
@@ -45,7 +45,7 @@
         entity_id: light.bedroom_lamps
       
 
-    ## Play a Sunrise Video From YouTube On Bedroom TV
+## Play a Sunrise Video From YouTube On Bedroom TV
 - id: 'sunrise_wakeup'
   alias: Sunrise Wake-Up
   trigger:
