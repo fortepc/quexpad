@@ -1,0 +1,192 @@
+###################################################
+#                                                 #
+#     Home Assistant Main Configuration           #
+#                                                 #
+###################################################
+
+homeassistant:
+  name: Quexser's Pad
+  latitude: !secret latitude
+  longitude: !secret longitude
+  elevation: 218.97
+  unit_system: imperial
+  time_zone: !secret time_zone
+  customize: !include customize.yaml
+tuya:
+  username: !secret email
+  password: !secret toggle
+  country_code: 1
+
+frontend:
+  themes: !include themes.yaml
+config:
+updater:
+  include_used_components: true
+http:
+  base_url: !secret base_url
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+  trusted_networks:
+    - 127.0.0.1
+    - ::1
+    - 192.168.1.0/24
+discovery:
+zwave:
+  usb_path: /dev/ttyACM0
+  network_key: !secret zwave_network_key
+#Disabled because it didn't work or the on.here integration.
+#emulated_hue:
+#  listen_port: 80
+#  host_ip: 192.168.1.132
+#  exposed_domains: 
+#    - light
+#    - switch
+
+
+# Change the settings of what devices have history saved https://www.home-assistant.io/components/history/
+history:
+
+# View all events in a logbook https://www.home-assistant.io/components/logbook
+logbook:
+
+google_assistant:
+  project_id: !secret google_assistant_projectid
+  api_key: !secret google_assistant_apikey
+  exposed_domains:
+    - switch
+    - lock
+    - light
+    - fan
+  expose_by_default: false
+  entity_config:
+    switch.bedroom_siren:
+      expose: false
+    switch.livingroom_siren:
+      expose: false
+    light.outside_frontporch1:
+      expose: false
+    light.outside_frontporch2:
+      expose: false
+    automation.motion_in_shower_locks_the_door:
+      name: Shower Lock
+      expose: true
+
+nest: 
+  client_id: !secret nest_client_id
+  client_secret: !secret nest_client_secret
+  
+google:
+  client_id: !secret google_calendar_client_id
+  client_secret: !secret google_calendar_client_secret
+
+calendar:
+  - platform: todoist
+    token: !secret todoist_token
+    
+ffmpeg:
+
+camera:
+  - platform: mjpeg
+    mjpeg_url: http://192.168.1.247/mjpeg.cgi
+    still_image_url: http://192.168.1.247/image.jpg
+    name: Front Porch
+    username: admin
+    password: !secret toggle
+  - platform: mjpeg
+    mjpeg_url: !secret main_room_ptz_url
+    name: Main Rooms PTZ
+  - platform: ring
+  
+    
+#usps:
+#    username: YOUR_USERNAME
+#    password: YOUR_PASSWORD
+
+ring:
+  username: !secret ring_username
+  password: !secret ring_password
+  
+binary_sensor:
+  - platform: ring
+
+media_extractor:
+
+###################################################
+#                                                 #
+#       External Configuration Files              #
+#                                                 #
+###################################################
+  
+input_number: !include input_number.yaml
+input_boolean: !include input_boolean.yaml
+input_select: !include input_select.yaml
+sensor: !include sensors.yaml
+group: !include groups.yaml
+automation: !include_dir_merge_list automations
+# script: !include_dir_merge_list scripts #long term goal is to switch to a dir merge instead of a single file include
+script: !include scripts.yaml
+notify: !include notifiers.yaml
+light: !include lights.yaml
+fan: !include fans.yaml
+panel_iframe: !include panels.yaml
+scene: !include scenes.yaml
+media_player: !include media_players.yaml
+switch: !include switches.yaml
+
+####################################################
+#                                                  #
+#                 Geolocation                      #
+#                      &                           #
+#                   Weather                        #
+#                                                  #
+####################################################
+
+map:
+zone: !include zones.yaml
+device_tracker:
+  - platform: nmap_tracker # This needs updated to only scan specific IP addresses to optimize performance.
+    hosts: 192.168.1.0/24
+  - platform: google_maps
+    username: !secret google_acount_username
+    password: !secret google_acount_password
+# Disabled, caused too crazy of a performance impact when these were enabled. Even if it would be really nice to use. 
+#  - platform: googlehome
+#    host: 192.168.1.104
+#  - platform: googlehome
+#    host: 192.168.1.107
+#  - platform: googlehome
+#    host: 192.168.1.105
+#  - platform: googlehome
+#    host: 192.168.1.103
+#  - platform: googlehome
+#    host: 192.168.1.160
+#  - platform: googlehome
+#    host: 192.168.1.118
+
+# Track the sun https://www.home-assistant.io/components/sun
+sun:
+weather:
+  - platform: yweather
+# Text to speech
+tts:
+  - platform: google
+
+####################################################
+#                                                  #
+#                 Alarm Panel                      #
+#                                                  #
+####################################################
+
+alarm_control_panel:
+  - platform: manual_mqtt
+    code: !secret alarm_code
+    state_topic: home/alarm
+    command_topic: home/alarm/set
+    pending_time: 0
+    delay_time: 0
+    trigger_time: 4000
+    disarmed:
+      trigger_time: 0
+    armed_away:
+      pending_time: 60
+      delay_time: 30
