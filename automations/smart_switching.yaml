@@ -64,3 +64,63 @@
   - data:
       entity_id: switch.bathroom_cubby
     service: switch.turn_off
+
+
+### Back Porch ###
+
+# Switch Side On
+- id: '2436884529211'
+  alias: 'Back Porch Off-2-On (Switch-2-Light) '
+  trigger:
+  - entity_id: switch.outside_back
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: light.back_porch
+    service: light.turn_on
+    
+# Switch Side Off
+- id: '2436884709645'
+  alias: 'Back Porch On-2-Off (Switch-2-Light) '
+  trigger:
+  - entity_id: switch.outside_back
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      entity_id: light.back_porch
+    service: light.turn_off
+    
+# Light Side On
+- id: '2436884529211'
+  alias: 'Back Porch Off-2-On (Light-2-Switch) '
+  trigger:
+  - entity_id: light.back_porch
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: switch.outside_back
+    service: switch.turn_on
+    
+# Loght Side Off
+- id: '2436885190258'
+  alias: 'Back Porch On-2-Off (Light-2-Switch) '
+  trigger:
+  - entity_id: light.back_porch
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      entity_id: switch.outside_back
+    service: switch.turn_off
+    
