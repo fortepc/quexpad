@@ -124,3 +124,63 @@
       entity_id: switch.outside_back
     service: switch.turn_off
     
+
+### Front Porch ###
+
+# Switch Side On
+- id: '1536884529211'
+  alias: 'Front Porch Off-2-On (Switch-2-Light) '
+  trigger:
+  - entity_id: switch.outside_front
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: light.outside_frontporch
+    service: light.turn_on
+    
+# Switch Side Off
+- id: '1536884709645'
+  alias: 'Front Porch On-2-Off (Switch-2-Light) '
+  trigger:
+  - entity_id: switch.outside_front
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      entity_id: light.outside_frontporch
+    service: light.turn_off
+    
+# Light Side On
+- id: '1536884529211'
+  alias: 'Front Porch Off-2-On (Light-2-Switch) '
+  trigger:
+  - entity_id: light.outside_frontporch
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - delay: 00:00:05
+  - data:
+      entity_id: switch.outside_front
+    service: switch.turn_on
+
+# Loght Side Off
+- id: '1536885190258'
+  alias: 'Front Porch On-2-Off (Light-2-Switch) '
+  trigger:
+  - entity_id: light.outside_frontporch
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - delay: 00:00:05
+  - data:
+      entity_id: switch.outside_front
+    service: switch.turn_off
