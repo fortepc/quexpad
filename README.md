@@ -1,2 +1,0 @@
-# quexpad
-Home Assistant Configuration
