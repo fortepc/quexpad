@@ -1,0 +1,162 @@
+climate.unnamed_device:
+  friendly_name: Thermostat
+media_player.livingroom_chromecast:
+  icon: mdi:cast
+light.livingroom_overhead:
+  icon: mdi:ceiling-light
+light.livingroom_sofalamp:
+  icon: mdi:sofa
+light.livingroom_reclinerlamp:
+  icon: mdi:seat
+switch.livingroom_terrarium:
+  icon: mdi:diamond-stone
+switch.livingroom_waxwarmer:
+  icon: mdi:pot
+media_player.livingroom_maxpair:
+  icon: mdi:cast-audio
+media_player.livingroom_mini:
+  icon: mdi:cast-audio
+switch.bedroom_siren:
+  icon: mdi:alarm-light
+switch.bedroom_closet:
+  icon: mdi:outdoor-lamp
+switch.05200382dc4f222f6ee5:
+  icon: mdi:lava-lamp
+zwave.bedroom_nightstands: {}
+light.bedroom_nightstands:
+  icon: mdi:floor-lamp
+light.bedroom_overhead:
+  icon: mdi:ceiling-light
+light.bathroom_overhead:
+  icon: mdi:ceiling-light
+light.bathroom_vanity:
+  icon: mdi:outdoor-lamp
+switch.bathroom_cubbyswitch:
+  icon: mdi:wall-sconce-flat
+switch.shower_vent:
+  icon: mdi:fan
+binary_sensor.front_door:
+  device_class: door
+binary_sensor.bathroom_door:
+  device_class: door
+binary_sensor.bedroom_closet_door:
+  device_class: door
+binary_sensor.bathroom_window:
+  device_class: window
+binary_sensor.back_door:
+  device_class: door
+binary_sensor.bedroom_door:
+  device_class: door
+binary_sensor.bedroom_window_1:
+  device_class: window
+binary_sensor.bedroom_window_2:
+  device_class: window
+binary_sensor.kitchen_window_1:
+  device_class: window
+binary_sensor.kitchen_window_2:
+  device_class: window
+binary_sensor.kitchen_window_3:
+  device_class: window
+binary_sensor.living_room_window_1:
+  device_class: window
+binary_sensor.living_room_window_2:
+  device_class: window
+binary_sensor.livingroom_window1:
+  device_class: window
+binary_sensor.livingroom_window2:
+  device_class: window
+binary_sensor.kitchen_window1:
+  device_class: window
+binary_sensor.kitchen_window2:
+  device_class: window
+binary_sensor.kitchen_window3:
+  device_class: window
+binary_sensor.bedroom_window1:
+  device_class: window
+binary_sensor.bedroom_window2:
+  device_class: window
+sensor.distance_to_david:
+  entity_picture: /local/people/david_jeffers.png
+sensor.distance_to_mark:
+  entity_picture: /local/people/mark_murphy.png
+device_tracker.google_maps_117596500104838591962:
+  friendly_name: Theo Zografos (GMAPS)
+device_tracker.google_maps_111919563340176050827:
+  friendly_name: Sauaiwa Swihart (GMAPS)
+device_tracker.google_maps_104193570598412200760:
+  friendly_name: Terri Wooten
+device_tracker.google_maps_112116801067791073109:
+  friendly_name: Richard Manship (GMAPS)
+device_tracker.google_maps_100595253634384490622:
+  friendly_name: Scott Jolly (GMAPS)
+device_tracker.google_maps_111987102632865601915:
+  friendly_name: Mark Murphy (GMAPS)
+device_tracker.google_maps_104689387514719813163:
+  friendly_name: Nicole DeRozier (GMAPS)
+device_tracker.google_maps_quexser_gmail_com:
+  friendly_name: Scott Jeffers (GMAPS)
+device_tracker.google_maps_104319806339731336469:
+  friendly_name: David Jeffers (GMAPS)
+device_tracker.google_maps_jeffersdavid93_gmail_com:
+  friendly_name: David Jeffers (GMAPS2)
+device_tracker.google_maps_114590642674688311408:
+  friendly_name: Tawaha Swihart (GMAPS)
+device_tracker.google_maps_109263310129727948968:
+  friendly_name: Crystal Dunham (GMAPS)
+binary_sensor.frontporch_stormdoor:
+  device_class: door
+binary_sensor.frontdoor_sensor:
+  device_class: door
+binary_sensor.backdoor_sensor:
+  device_class: door
+sensor.shower_4in1_humidity:
+  device_class: humidity
+sensor.shower_4in1_luminance:
+  device_class: illuminance
+binary_sensor.bedroomdoor_sensor:
+  device_class: door
+binary_sensor.bedroomclosetdoor_sensor:
+  device_class: door
+binary_sensor.bathroomdoor_sensor:
+  device_class: door
+switch.house_watermain:
+  icon: mdi:fire-hydrant
+zwave.house_watermain:
+  icon: mdi:fire-hydrant
+light.kitchen_overhead:
+  icon: mdi:ceiling-light
+zwave.kitchen_overhead:
+  icon: mdi:ceiling-light
+light.kitchen_pendant:
+  icon: mdi:ceiling-light
+binary_sensor.backdoor:
+  device_class: doorp
+binary_sensor.bathroom:
+  device_class: window
+binary_sensor.frontdoor:
+  device_class: door
+binary_sensor.livingroom_window3:
+  device_class: window
+switch.livingroom_frontporchswitch:
+  icon: mdi:ceiling-light
+binary_sensor.aeon_labs_zw089_recessed_door_sensor_gen5_sensor:
+  device_class: door
+binary_sensor.aeon_labs_zw089_recessed_door_sensor_gen5_sensor_3:
+  device_class: door
+binary_sensor.bathroomdoor:
+  device_class: door
+binary_sensor.bedroomclosetdoor:
+  device_class: door
+binary_sensor.bedroomdoor:
+  device_class: door
+lock.frontdoor_deadbolt:
+  icon: mdi:lock
+lock.backdoor_deadbolt:
+  icon: mdi:lock
+automation.turn_off_kitchen_under_cabinet_at_11_59pm: {}
+sensor.frontporch_4in1_motion:
+  friendly_name: Front Porch Motion
+binary_sensor.bedroom_closetdoor_sensor:
+  device_class: door
+binary_sensor.bedroomcloset_door:
+  device_class: door

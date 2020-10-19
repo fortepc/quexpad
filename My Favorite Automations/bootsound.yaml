@@ -1,0 +1,193 @@
+- id: '1581444994154'
+  alias: Announcement - Home Assistant Started
+  description: ''
+  trigger:
+  - event: start
+    platform: homeassistant
+  condition: []
+  action:
+  - data:
+      entity_id: media_player.group_ceiling
+      message: Home Assistant has Started
+    service: tts.google_translate_say
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: TTS
+      sequence:
+      - service: tts.google_translate_say
+        data:
+          entity_id: media_player.group_ceiling
+          message: Home Assistant has Started
+        entity_id: media_player.group_everything
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Windows 3.1
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/Windows3.1Startup.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Windows 95
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/Windows95Startup.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Windows NT
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/WindowsNTStartup.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Windows 98
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/Windows98Startup.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Windows 2000
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/Windows2000Startup.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Windows ME
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/WindowsMEStartup.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Windows XP
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/WindowsXPStartup.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Windows Vista
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/WindowsVistaStartup.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Windows 7
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/Windows7Startup.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Xbox
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/XBOXBoot.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Xbox 360
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/XBOXBoot.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Sony PS2
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/SonyPS2Boot.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Sony PSP
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/SonyPSPBoot.mp3
+          media_content_type: music
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Mac OS 9
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/MacOS9Boot.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Nintendo Gamecube
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/NintendoGamecubeBoot.mp3
+          media_content_type: music
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Nintendo Gamecube Z Boot
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/NintendoGamecubeZBoot.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: NintendoGamecube4ZBoot.mp3
+      sequence:
+      - service: media_player.play_media
+        data:
+          zmedia_content_id: https://192.168.1.111:8123/local/audio/NintendoGamecube4ZBoot.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    default: []
+  mode: single

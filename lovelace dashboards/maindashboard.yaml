@@ -1,0 +1,154 @@
+views:
+  - badges: []
+    cards:
+      - type: entities
+        entities:
+          - switch.05200381dc4f222f2120
+          - fan.livingroom_ceilingfan
+          - light.livingroom_overhead
+          - light.livingroom_reclinerlamp
+          - light.livingroom_sofalamp
+          - switch.livingroom_terrarium
+        show_header_toggle: false
+        title: Living Room
+        state_color: true
+      - type: entities
+        entities:
+          - entity: fan.kitchen_ceilingfan
+          - entity: light.kitchen_pendant
+          - entity: light.kitchen_overhead
+          - entity: light.kitchen_overcabinetlighting
+          - entity: light.kitchen_undercabinetlighting
+        title: Kitchen
+        state_color: true
+      - type: entities
+        entities:
+          - entity: light.bedroom_closet_light
+          - entity: fan.bedroom_ceilingfan
+          - entity: light.bedroom_nightstands
+          - entity: switch.bedroom_saltlamp
+        title: Bedroom
+        state_color: true
+      - type: entities
+        entities:
+          - entity: light.bathroom_overhead
+          - entity: light.bathroom_cubby
+          - entity: light.bathroom_vanity
+          - entity: fan.bathroom_vent
+          - entity: light.shower_overhead
+          - entity: switch.shower_vent
+        title: Bathroom
+        state_color: true
+        show_header_toggle: false
+    icon: 'mdi:home'
+    path: home
+    title: Home
+  - title: Utilities Details
+    path: utilities-details
+    badges: []
+    cards:
+      - type: gauge
+        entity: sensor.my_house_water_monitor_daily_water
+        min: 0
+        max: 150
+        severity:
+          green: 100
+          yellow: 125
+          red: 150
+        name: Daily Water
+      - type: gauge
+        entity: sensor.daily_usage
+        min: 0
+        max: 100
+        severity:
+          green: 75
+          yellow: 85
+          red: 95
+        name: Daily Power
+      - type: history-graph
+        entities:
+          - entity: sensor.my_house_water_monitor_daily_water
+        hours_to_show: 24
+        refresh_interval: 0
+        title: Daily Water Usage
+  - title: Service Automations
+    path: service-automations
+    badges: []
+    cards:
+      - type: entities
+        entities:
+          - entity: automation.auto_on_front_porch_spiders
+          - entity: automation.auto_on_overcabinet_lighting_12_00am_to_6_00am
+          - entity: automation.auto_on_front_porch_spiders
+        title: Auto on
+  - title: Locations
+    path: locations
+    icon: 'mdi:map'
+    badges: []
+    cards:
+      - type: map
+        entities:
+          - entity: person.haley_gainey
+          - entity: person.mark_murphy
+          - entity: person.rick_manship
+          - entity: person.scott_jolley
+          - entity: person.scott_jeffers
+        hours_to_show: 12
+        dark_mode: false
+        title: Charlotte Peeps
+      - type: 'custom:mini-graph-card'
+        name: Distance to Charlotte Peeps
+        icon: 'mdi:map-marker-distance'
+        lower_bound: 0
+        entities:
+          - entity: sensor.distance_to_mark
+            name: Mark Murphy
+          - entity: sensor.distance_to_rick
+            name: Richard Manship
+          - entity: sensor.distance_to_haley_gainey
+            name: Haley Gainey
+          - entity: sensor.distance_to_scott_jolly
+            name: Scott Jolly
+      - type: entities
+        title: Charlotte Peeps
+        entities:
+          - entity: sensor.distance_to_mark
+            type: 'custom:multiple-entity-row'
+            name: Mark Murphy
+            unit: miles away
+            secondary_info: last-changed
+            entities:
+              - attribute: location
+                name: Location
+              - entity: switch.proximity_mark
+                name: Proximity Alarm
+          - entity: sensor.distance_to_rick
+            type: 'custom:multiple-entity-row'
+            name: Richard Manship
+            unit: miles away
+            secondary_info: last-changed
+            entities:
+              - attribute: location
+                name: Location
+              - entity: switch.proximity_mark
+                name: Proximity Alarm
+          - entity: sensor.distance_to_haley_gainey
+            type: 'custom:multiple-entity-row'
+            name: Haley Gainey
+            unit: miles away
+            secondary_info: last-changed
+            entities:
+              - attribute: location
+                name: Location
+              - entity: switch.proximity_mark
+                name: Proximity Alarm
+          - entity: sensor.distance_to_scott_jolly
+            type: 'custom:multiple-entity-row'
+            name: Scott Jolly
+            unit: miles away
+            secondary_info: last-changed
+            entities:
+              - attribute: location
+                name: Location
+              - entity: switch.proximity_jolly
+                name: Proximity Alarm

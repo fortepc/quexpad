@@ -1,0 +1,900 @@
+- id: '1581348312536'
+  alias: When Home Assistant starts change to Dark Mode Theme
+  description: ''
+  trigger:
+  - event: start
+    platform: homeassistant
+  condition: []
+  action:
+  - data:
+      name: Google Dark Theme
+    service: frontend.set_theme
+- id: '1581352169853'
+  alias: Water Valve to Water Heater Sync
+  description: If Water Main turns off, Turn off Hot Water Heater
+  trigger:
+  - entity_id: switch.water_main_switch
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - type: turn_off
+    device_id: ffed5ce1fea911ea8dc60ddfff0d1af1
+    entity_id: switch.hotwaterheater
+    domain: switch
+  mode: single
+- id: '1581443360279'
+  alias: Time - 4:30PM turn on Living Room Wax Warmer
+  description: ''
+  trigger:
+  - at: '15:30:00'
+    platform: time
+  condition: []
+  action:
+  - entity_id: switch.livingroom_waxwarmer
+    service: switch.turn_on
+- id: '1581444994154'
+  alias: Announcement - Home Assistant Started
+  description: ''
+  trigger:
+  - event: start
+    platform: homeassistant
+  condition: []
+  action:
+  - data:
+      entity_id: media_player.group_ceiling
+      message: Home Assistant has Started
+    service: tts.google_translate_say
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: TTS
+      sequence:
+      - service: tts.google_translate_say
+        data:
+          entity_id: media_player.group_ceiling
+          message: Home Assistant has Started
+        entity_id: media_player.group_everything
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Windows 3.1
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/Windows3.1Startup.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Windows 95
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/Windows95Startup.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Windows NT
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/WindowsNTStartup.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Windows 98
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/Windows98Startup.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Windows 2000
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/Windows2000Startup.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Windows ME
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/WindowsMEStartup.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Windows XP
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/WindowsXPStartup.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Windows Vista
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/WindowsVistaStartup.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Windows 7
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/Windows7Startup.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Xbox
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/XBOXBoot.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Xbox 360
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/XBOXBoot.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Sony PS2
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/SonyPS2Boot.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Sony PSP
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/SonyPSPBoot.mp3
+          media_content_type: music
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Mac OS 9
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/MacOS9Boot.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Nintendo Gamecube
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/NintendoGamecubeBoot.mp3
+          media_content_type: music
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: Nintendo Gamecube Z Boot
+      sequence:
+      - service: media_player.play_media
+        data:
+          media_content_id: https://192.168.1.111:8123/local/audio/NintendoGamecubeZBoot.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    - conditions:
+      - condition: state
+        entity_id: input_select.ha_started_sound
+        state: NintendoGamecube4ZBoot.mp3
+      sequence:
+      - service: media_player.play_media
+        data:
+          zmedia_content_id: https://192.168.1.111:8123/local/audio/NintendoGamecube4ZBoot.mp3
+          media_content_type: music
+        entity_id: media_player.group_ceiling
+    default: []
+  mode: single
+- id: '1581528526781'
+  alias: Router Bytes Downloaded Rollover
+  description: ''
+  trigger:
+  - entity_id: sensor.router_bytes_received
+    platform: state
+  condition:
+  - condition: template
+    value_template: '{{ (trigger.from_state.state | float) > (trigger.to_state.state
+      | float) }}'
+  action:
+  - entity_id: input_number.router_rx_day
+    service: input_number.increment
+  - entity_id: input_number.router_rx_month
+    service: input_number.increment
+  - entity_id: input_number.router_rx_year
+    service: input_number.increment
+- id: '1581530992277'
+  alias: Router Daily GB Clear
+  description: ''
+  trigger:
+  - at: 00:00:00
+    platform: time
+  condition: []
+  action:
+  - data:
+      value: 0
+    entity_id: input_number.router_rx_day
+    service: input_number.set_value
+  - data:
+      value: 0
+    entity_id: input_number.router_tx_day
+    service: input_number.set_value
+- id: '1581531132181'
+  alias: Router Monthly GB Clear
+  description: ''
+  trigger:
+  - at: 00:00:00
+    platform: time
+  condition:
+  - condition: template
+    value_template: '{{ now().day == 1 }}'
+  action:
+  - data:
+      value: 0
+    entity_id: input_number.router_tx_month
+    service: input_number.set_value
+  - data:
+      value: 0
+    entity_id: input_number.router_rx_month
+    service: input_number.set_value
+- id: '1581531556327'
+  alias: Router Yearly GB Reset
+  description: ''
+  trigger:
+  - at: 00:00:00
+    platform: time
+  condition:
+  - condition: template
+    value_template: '{{ (utcnow().month == 1) + (utcnow().day == 1) == 2 }}'
+  action:
+  - data:
+      value: 0
+    entity_id: input_number.router_rx_year
+    service: input_number.set_value
+  - data:
+      value: 0
+    entity_id: input_number.router_tx_year
+    service: input_number.set_value
+- id: '1581547309090'
+  alias: Router Bytes Uploaded Rollover
+  description: ''
+  trigger:
+  - entity_id: sensor.router_bytes_received
+    platform: state
+  condition:
+  - condition: template
+    value_template: '{{ (trigger.from_state.state | float) > (trigger.to_state.state
+      | float) }}'
+  action:
+  - entity_id: input_number.router_tx_day
+    service: input_number.increment
+  - entity_id: input_number.router_tx_month
+    service: input_number.increment
+  - entity_id: input_number.router_tx_year
+    service: input_number.increment
+- id: '1581741572420'
+  alias: Auto Off - Living Room Wax Warmer after 2 hours
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: 981587a8fea411eaaea51318ad896749
+    entity_id: switch.livingroom_waxwarmer
+    domain: switch
+    for:
+      hours: 2
+      minutes: 0
+      seconds: 0
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 981587a8fea411eaaea51318ad896749
+    entity_id: switch.livingroom_waxwarmer
+    domain: switch
+  mode: single
+- id: '1581777730178'
+  alias: Turn on Under Cabinet Lights at Sunset
+  description: Turn on Under Cabinet Lights at Sunset
+  trigger:
+  - event: sunset
+    offset: -00:30:00
+    platform: sun
+  condition: []
+  action:
+  - brightness_pct: 15
+    device_id: 2bd2060a4c274534b6002fc6063a1f0a
+    domain: light
+    entity_id: light.kitchen_undercabinetlighting
+    type: turn_on
+- id: '1581777918649'
+  alias: 'Auto Off - Turn off Kitchen Under Cabinet at 11:59pm '
+  description: ''
+  trigger:
+  - at: '23:59:00'
+    platform: time
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 2e8d2f23fea011ea8d538b53fceb35c0
+    entity_id: light.kitchen_undercabinetlighting
+    domain: light
+  mode: single
+- id: '1581778087538'
+  alias: Auto On - Overcabinet Lighting 12:00am to 6:00am
+  description: ''
+  trigger:
+  - entity_id: sensor.kitchen_4in1_motion
+    platform: state
+    to: '255'
+  condition:
+  - after: 00:00:00
+    before: 05:00:00
+    condition: time
+  action:
+  - data:
+      brightness_pct: 100
+    entity_id: light.kitchen_overcabinetlighting
+    service: light.turn_on
+  - delay: 00:01:00
+  - entity_id: light.kitchen_overcabinetlighting
+    service: light.turn_off
+- id: '1581787048291'
+  alias: Motion - Shower Lock Doors
+  description: ''
+  trigger:
+  - entity_id: sensor.shower_4in1_motion
+    from: '0'
+    platform: state
+    to: '255'
+  condition: []
+  action:
+  - device_id: ca5e2057fe9f11eaa3ffd574b8046170
+    domain: lock
+    entity_id: lock.frontdoor_deadbolt
+    type: lock
+  mode: single
+- id: '1581814349175'
+  alias: Climate - Outside Temp >90
+  description: Turn on ceiling fans if Outside temp is above 90
+  trigger:
+  - above: '90'
+    entity_id: sensor.frontporch_4in1_temperature
+    for: 00:01:00
+    platform: numeric_state
+  condition: []
+  action:
+  - entity_id: fan.livingroom_ceilingfan
+    service: fan.turn_on
+  - entity_id: fan.kitchen_ceilingfan
+    service: fan.turn_on
+  - entity_id: fan.bedroom_ceilingfan
+    service: fan.turn_on
+  - delay: 00:04:00
+  - entity_id: fan.livingroom_ceilingfan
+    service: fan.turn_off
+  - entity_id: fan.kitchen_ceilingfan
+    service: fan.turn_off
+  - entity_id: fan.bedroom_ceilingfan
+    service: fan.turn_off
+- id: '1581816307492'
+  alias: No Motion - Kitchen Lights Off
+  description: Unoccupied Kitchen
+  trigger:
+  - entity_id: sensor.kitchen_4in1_motion
+    for: 00:30:00
+    from: '255'
+    platform: state
+    to: '0'
+  condition: []
+  action:
+  - entity_id: light.kitchen_overhead
+    service: light.turn_off
+  - entity_id: light.kitchen_pendant
+    service: light.turn_off
+  - entity_id: light.laundry_overhead
+    service: light.turn_off
+  mode: single
+- id: '1581817313153'
+  alias: Motion - Shower Light On
+  description: ''
+  trigger:
+  - entity_id: sensor.shower_4in1_motion
+    from: '0'
+    platform: state
+    to: '255'
+  condition:
+  - condition: time
+    after: 09:00
+    before: 05:00
+  action:
+  - type: turn_on
+    device_id: 17cca8bffea411eabbe951ff8972bda1
+    entity_id: light.shower_overhead
+    domain: light
+    brightness_pct: 100
+  mode: single
+- id: '1581817452094'
+  alias: No Motion - Shower Light Off
+  description: ''
+  trigger:
+  - entity_id: sensor.shower_4in1_motion
+    for: 00:05:00
+    from: '255'
+    platform: state
+    to: '0'
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 17cca8bffea411eabbe951ff8972bda1
+    entity_id: light.shower_overhead
+    domain: light
+  mode: single
+- id: '1581817577025'
+  alias: No Motion - Bathroom Lights Off
+  description: ''
+  trigger:
+  - for: 00:15:00
+    from: '255'
+    platform: state
+    to: '0'
+    entity_id: sensor.bathroom_4in1_motion
+  condition: []
+  action:
+  - entity_id: light.bathroom_overhead
+    service: light.turn_off
+  - entity_id: light.bathroom_vanity
+    service: light.turn_off
+  mode: single
+- id: '1581817777400'
+  alias: Humidity - >70% in Bathroom
+  description: ''
+  trigger:
+  - above: '70'
+    entity_id: sensor.bathroom_4in1_relativehumidity
+    platform: numeric_state
+  condition: []
+  action:
+  - entity_id: fan.bathroom_vent
+    service: fan.turn_on
+- id: '1581817932599'
+  alias: Humidity - >70% in Shower
+  description: ''
+  trigger:
+  - above: '71'
+    entity_id: sensor.shower_4in1_relativehumidity
+    platform: numeric_state
+  condition: []
+  action:
+  - entity_id: switch.shower_vent
+    service: switch.turn_on
+- id: '1581818093600'
+  alias: Auto Off - Bathroom Vent
+  description: ''
+  trigger:
+  - entity_id: fan.bathroom_vent
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - delay: 00:15:00
+  - entity_id: fan.bathroom_vent
+    service: fan.turn_off
+  mode: single
+- id: '1581818181423'
+  alias: Auto Off - Shower Vent
+  description: ''
+  trigger:
+  - entity_id: switch.shower_vent
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - delay: 00:15:00
+  - entity_id: switch.shower_vent
+    service: switch.turn_off
+- id: '1581818466856'
+  alias: Door - Closet Door Open
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.bedroomcloset_door
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - entity_id: light.bedroom_closet_light
+    service: light.turn_on
+  mode: single
+- id: '1581818557147'
+  alias: Door - Closet Door Close
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.bedroomcloset_door
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - entity_id: light.bedroom_closet_light
+    service: light.turn_off
+  mode: single
+- id: '1581825218605'
+  alias: 'Auto Off - Daily Water >125 gal Shut '
+  description: Shuts Off Main after 125 gallons a day
+  trigger:
+  - entity_id: sensor.my_house_water_monitor_daily_water
+    platform: state
+    to: '125'
+  condition: []
+  action:
+  - entity_id: switch.house_watermain
+    service: switch.turn_off
+- id: '1581825735338'
+  alias: Time - Water Heater Off at 12:00 am
+  description: Turn Water Heater Off at 12:00 am
+  trigger:
+  - at: 00:00
+    platform: time
+  condition: []
+  action:
+  - entity_id: switch.hotwaterheater
+    service: switch.turn_off
+  mode: single
+- id: '1581825864904'
+  alias: Time - Water Heater On at 5:00 am
+  description: ''
+  trigger:
+  - at: 05:00
+    platform: time
+  condition: []
+  action:
+  - entity_id: switch.hotwaterheater
+    service: switch.turn_on
+  mode: single
+- id: '1581863156962'
+  alias: Climate - Ambient Temp below 35 Turn on Water Heater
+  description: AquaHut ambient Temp below 35 Turn on Water Heater
+  trigger:
+  - below: '40'
+    entity_id: sensor.crawlspace_hotwaterheater_ambienttemperature
+    platform: numeric_state
+  condition:
+  - condition: state
+    entity_id: switch.house_watermain
+    state: 'on'
+  action:
+  - entity_id: switch.crawlspace_hotwaterheater
+    service: switch.turn_on
+- id: '1581864781005'
+  alias: 'Zone - Auto Lock '
+  description: Lock doors when I leave home for 10 mins
+  trigger:
+  - entity_id: person.scott_jeffers
+    event: leave
+    platform: zone
+    zone: zone.home
+  condition: []
+  action:
+  - delay: 00:05:00
+  - entity_id: lock.backdoor_deadbolt
+    service: lock.lock
+  - entity_id: lock.frontdoor_deadbolt
+    service: lock.lock
+- id: '1581866098217'
+  alias: Time - Start Plex Add-On at 6:00 am
+  description: Starts Plex server at 6:00 am
+  trigger:
+  - at: 06:00
+    platform: time
+  condition: []
+  action:
+  - data:
+      addon: a0d7b954_plex
+    service: hassio.addon_start
+- id: '1581866256735'
+  alias: Time - Stop Plex at 2:00 am
+  description: Stop Plex at 2:00 am
+  trigger:
+  - at: 02:00
+    platform: time
+  condition: []
+  action:
+  - data:
+      addon: a0d7b954_plex
+    service: hassio.addon_stop
+- id: '1581867655771'
+  alias: Time - Welcome Lights
+  description: Turns On key lights if I arrive after sunset
+  trigger:
+  - entity_id: person.scott_jeffers
+    event: enter
+    platform: zone
+    zone: zone.home
+  condition:
+  - after: sunset
+    after_offset: -00:30:00
+    before: sunrise
+    before_offset: -00:30:00
+    condition: sun
+  action:
+  - entity_id: switch.livingroom_frontporchswitch
+    service: switch.turn_on
+- id: '1581991837724'
+  alias: Notification - Exterior Doors
+  description: Notification when an exterior door opens
+  trigger:
+  - device_id: 16b76d324eff41158e172ad2086e4f22
+    domain: binary_sensor
+    entity_id: binary_sensor.frontdoor
+    platform: device
+    type: opened
+  - device_id: 06b8838824194022bad3fcdff0c8a0f1
+    domain: binary_sensor
+    entity_id: binary_sensor.backdoor
+    platform: device
+    type: opened
+  condition: []
+  action:
+  - data:
+      data:
+        color: red
+      message: Exterior Door Opened
+      title: Entry Detection
+    service: notify.notify
+- id: '1582590067318'
+  alias: Announcement - Z-Wave Network Ready
+  description: ''
+  trigger:
+  - event_data: {}
+    event_type: zwave.network_ready
+    platform: event
+  condition: []
+  action:
+  - data:
+      entity_id: media_player.group_ceiling
+      message: Z Wave Network Ready
+    service: tts.google_translate_say
+- id: '1582764853465'
+  alias: MQTT Weather
+  description: Post Weather information to MQTT
+  trigger:
+  - minutes: '30'
+    platform: time_pattern
+  condition: []
+  action:
+  - data:
+      payload_template: '{''weather'':{{states.weather.dark_sky.attributes}}}'
+      retain: true
+      topic: livingroom_alarmpanel/command
+    service: mqtt.publish
+  - data:
+      payload_template: '{''weather'':{{states.weather.dark_sky.attributes}}}'
+      retain: true
+      topic: bedroom_alarmpanel/command
+    service: mqtt.publish
+  - data:
+      payload_template: '{''weather'':{{states.weather.dark_sky.attributes}}}'
+      retain: true
+      topic: bathroom_alarmpanel/command
+    service: mqtt.publish
+- id: '1582767416575'
+  alias: MQTT Sun
+  description: ''
+  trigger:
+  - minutes: '30'
+    platform: time_pattern
+  condition: []
+  action:
+  - data:
+      payload_template: '{''sun'':''{{states(''sun.sun'')}}''}'
+      retain: true
+      topic: livingroom_alarmpanel/command
+    service: mqtt.publish
+  - data:
+      payload_template: '{''sun'':''{{states(''sun.sun'')}}''}'
+      retain: true
+      topic: bedroom_alarmpanel/command
+    service: mqtt.publish
+  - data:
+      payload_template: '{''sun'':''{{states(''sun.sun'')}}''}'
+      retain: true
+      topic: bathroom_alarmpanel/command
+    service: mqtt.publish
+- id: '1582770230038'
+  alias: Template - Tablet Audio Play
+  description: Make the tablets play an audio file
+  trigger:
+  - platform: mqtt
+    topic: dummytrigger
+  condition: []
+  action:
+  - data:
+      payload: '{"audio": "https://play.pokemonshowdown.com/audio/cries/porygon.mp3"}'
+      retain: false
+      topic: livingroom_alarmpanel/command
+    service: mqtt.publish
+  - data:
+      payload: '{"audio": "https://play.pokemonshowdown.com/audio/cries/porygon.mp3"}'
+      retain: false
+      topic: bedroom_alarmpanel/command
+    service: mqtt.publish
+  - data:
+      payload: '{"audio": "https://play.pokemonshowdown.com/audio/cries/porygon.mp3"}'
+      retain: false
+      topic: bathroom_alarmpanel/command
+    service: mqtt.publish
+- id: '1582770400193'
+  alias: Template - Wake Tablet Screen
+  description: ''
+  trigger:
+  - platform: mqtt
+    topic: dummytrigger
+  condition: []
+  action:
+  - data:
+      payload: '{"wake": true}'
+      retain: true
+      topic: livingroom_alarmpanel/command
+    service: mqtt.publish
+  - data:
+      payload: '{"wake": true}'
+      retain: true
+      topic: bedroom_alarmpanel/command
+    service: mqtt.publish
+  - data:
+      payload: '{"wake": true}'
+      retain: true
+      topic: bathroom_alarmpanel/command
+    service: mqtt.publish
+- id: '1582771032185'
+  alias: Template - Tablet TTS Speak
+  description: ''
+  trigger:
+  - platform: mqtt
+    topic: dummytrigger
+  condition: []
+  action:
+  - data:
+      payload: '{"speak": "Hello World!"}'
+      retain: false
+      topic: livingroom_alarmpanel/command
+    service: mqtt.publish
+  - data:
+      payload: '{"speak": "Hello World!"}'
+      retain: false
+      topic: bedroom_alarmpanel/command
+    service: mqtt.publish
+  - data:
+      payload: '{"speak": "Hello World!"}'
+      retain: false
+      topic: bathroom_alarmpanel/command
+    service: mqtt.publish
+- id: '1588376534265'
+  alias: Haley Announcement
+  description: ''
+  trigger:
+  - entity_id: device_tracker.lg_k40
+    event: enter
+    platform: zone
+    zone: zone.home
+  condition: []
+  action:
+  - delay: 00:00:30
+  - data:
+      entity_id: media_player.living_room_speaker
+      message: Hello Haily, Welcome Back
+    service: tts.google_translate_say
+- id: '1588379700821'
+  alias: Outer Perimeter
+  description: ''
+  trigger:
+  - entity_id: person.haley_gainey
+    event: enter
+    platform: zone
+    zone: zone.outer_perimeter
+  condition: []
+  action:
+  - data:
+      data:
+        color: red
+      message: Haley at Perimeter
+      title: Proximity Detection
+    service: notify.mobile_app_pixel_3
+- id: '1594439565924'
+  alias: 'Front Porch Motion '
+  description: ''
+  trigger:
+  - device_id: aebd6a093a414286b4d7ae90ebd07622
+    domain: binary_sensor
+    entity_id: binary_sensor.frontporch_motion
+    platform: device
+    type: motion
+  condition: []
+  action:
+  - data:
+      entity_id: media_player.bedroom_mini
+      message: wake your ass up, someone is on the front porch
+    service: tts.google_translate_say
+- id: '1600988164938'
+  alias: Terrarium Auto-on
+  description: ''
+  trigger:
+  - platform: time
+    at: input_datetime.terrarium_on
+  condition: []
+  action:
+  - type: turn_on
+    device_id: b268bc38fea411ea820431ff8ac041de
+    entity_id: switch.livingroom_terrarium
+    domain: switch
+  mode: single
+- id: '1601844309270'
+  alias: Auto On - Front Porch Spiders
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: 00:30:00
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 35891b2bfeaf11ea87ebc78d76660233
+    entity_id: switch.crockpot
+    domain: switch
+  mode: single
+- id: '1601844384375'
+  alias: Auto Off - Turn Off the Spiders
+  description: ''
+  trigger:
+  - platform: time
+    at: 00:01
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 35891b2bfeaf11ea87ebc78d76660233
+    entity_id: switch.crockpot
+    domain: switch
+  mode: single

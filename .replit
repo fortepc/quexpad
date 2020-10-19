@@ -1,0 +1,2 @@
+language = "bash"
+run = "echo This Repl is not run-able on it's own. This Repl contains configuration for Home Assistant, a home automation platform controlled by a mix of UI, YAML, and JSON configurations. This Repl serves as a backup, and place to share the different things I've done with my Home Assistant with others who are as excited about home automation as I am -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"

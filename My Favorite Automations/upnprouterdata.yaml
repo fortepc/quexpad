@@ -1,0 +1,86 @@
+- id: '1581528526781'
+  alias: Router Bytes Downloaded Rollover
+  description: ''
+  trigger:
+  - entity_id: sensor.router_bytes_received
+    platform: state
+  condition:
+  - condition: template
+    value_template: '{{ (trigger.from_state.state | float) > (trigger.to_state.state
+      | float) }}'
+  action:
+  - entity_id: input_number.router_rx_day
+    service: input_number.increment
+  - entity_id: input_number.router_rx_month
+    service: input_number.increment
+  - entity_id: input_number.router_rx_year
+    service: input_number.increment
+- id: '1581530992277'
+  alias: Router Daily GB Clear
+  description: ''
+  trigger:
+  - at: 00:00:00
+    platform: time
+  condition: []
+  action:
+  - data:
+      value: 0
+    entity_id: input_number.router_rx_day
+    service: input_number.set_value
+  - data:
+      value: 0
+    entity_id: input_number.router_tx_day
+    service: input_number.set_value
+- id: '1581531132181'
+  alias: Router Monthly GB Clear
+  description: ''
+  trigger:
+  - at: 00:00:00
+    platform: time
+  condition:
+  - condition: template
+    value_template: '{{ now().day == 1 }}'
+  action:
+  - data:
+      value: 0
+    entity_id: input_number.router_tx_month
+    service: input_number.set_value
+  - data:
+      value: 0
+    entity_id: input_number.router_rx_month
+    service: input_number.set_value
+- id: '1581531556327'
+  alias: Router Yearly GB Reset
+  description: ''
+  trigger:
+  - at: 00:00:00
+    platform: time
+  condition:
+  - condition: template
+    value_template: '{{ (utcnow().month == 1) + (utcnow().day == 1) == 2 }}'
+  action:
+  - data:
+      value: 0
+    entity_id: input_number.router_rx_year
+    service: input_number.set_value
+  - data:
+      value: 0
+    entity_id: input_number.router_tx_year
+    service: input_number.set_value
+- id: '1581547309090'
+  alias: Router Bytes Uploaded Rollover
+  description: ''
+  trigger:
+  - entity_id: sensor.router_bytes_received
+    platform: state
+  condition:
+  - condition: template
+    value_template: '{{ (trigger.from_state.state | float) > (trigger.to_state.state
+      | float) }}'
+  action:
+  - entity_id: input_number.router_tx_day
+    service: input_number.increment
+  - entity_id: input_number.router_tx_month
+    service: input_number.increment
+  - entity_id: input_number.router_tx_year
+    service: input_number.increment

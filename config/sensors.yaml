@@ -1,0 +1,126 @@
+- platform: tautulli
+  api_key: !secret tautulli_apikey
+  host: !secret media_host
+  port: !secret tautulli_port
+- platform: template
+  sensors:
+    distance_to_david:
+      unit_of_measurement: mi
+      friendly_name: "Distance to David"
+      value_template: "{{(distance('person.scott_jeffers', 'person.david_jeffers')) | round(2)}}" 
+      attribute_templates:
+          name: "David"
+          location: " {{ states('person.david_jeffers') }}"
+          gps_accuracy: "{{ state_attr('person.david_jeffers','gps_accuracy') }}"
+          source: "{{ state_attr('person.david_jeffers','source') }}"
+          entity_picture: "{{ state_attr('person.david_jeffers','entity_picture') }}"
+    distance_to_nicole:
+      unit_of_measurement: mi
+      friendly_name: "Distance to Nicole"
+      value_template: "{{(distance('person.scott_jeffers', 'person.nicole_derozier')) | round(2)}}" 
+      attribute_templates:
+          name: "Nicole"
+          location: " {{ states('person.nicole_derozier') }}"
+          gps_accuracy: "{{ state_attr('person.nicole_derozier','gps_accuracy') }}"
+          source: "{{ state_attr('person.nicole_derozier','source') }}"
+          entity_picture: "{{ state_attr('person.nicole_derozier','entity_picture') }}"
+    distance_to_crystal:
+      unit_of_measurement: mi
+      friendly_name: "Distance to Crystal"
+      value_template: "{{(distance('person.scott_jeffers', 'person.crystal_dunham')) | round(2)}}" 
+      attribute_templates:
+          name: "Crystal"
+          location: " {{ states('person.crystal_dunham') }}"
+          gps_accuracy: "{{ state_attr('person.crystal_dunham','gps_accuracy') }}"
+          source: "{{ state_attr('person.crystal_dunham','source') }}"
+          entity_picture: "{{ state_attr('person.crystal_dunham','entity_picture') }}"
+    distance_to_mark:
+      unit_of_measurement: mi
+      friendly_name: "Distance to Mark"
+      value_template: "{{(distance('person.scott_jeffers', 'person.mark_murphy')) | round(2)}}" 
+      attribute_templates:
+          name: "Mark"
+          location: " {{ states('person.mark_murphy') }}"
+          gps_accuracy: "{{ state_attr('person.mark_murphy','gps_accuracy') }}"
+          source: "{{ state_attr('person.mark_murphy','source') }}"
+          entity_picture: "{{ state_attr('person.mark_murphy','entity_picture') }}"
+    distance_to_haley_gainey:
+      unit_of_measurement: mi
+      friendly_name: "Distance to Haley"
+      value_template: "{{(distance('person.scott_jeffers', 'person.haley_gainey')) | round(2)}}" 
+      attribute_templates:
+          name: "Haley"
+          location: " {{ states('person.haley_gainey') }}"
+          gps_accuracy: "{{ state_attr('person.haley_gainey','gps_accuracy') }}"
+          source: "{{ state_attr('person.haley_gainey','source') }}"
+          entity_picture: "{{ state_attr('person.haley_gainey','entity_picture') }}"
+    distance_to_rick:
+      unit_of_measurement: mi
+      friendly_name: "Distance to Rick"
+      value_template: "{{(distance('person.scott_jeffers', 'person.rick_manship')) | round(2)}}" 
+      attribute_templates:
+          name: "Rick"
+          location: " {{ states('person.rick_manship') }}"
+          gps_accuracy: "{{ state_attr('person.rick_manship','gps_accuracy') }}"
+          source: "{{ state_attr('person.rick_manship','source') }}"
+          entity_picture: "{{ state_attr('person.rick_manship','entity_picture') }}"
+    distance_to_trailer:
+      unit_of_measurement: mi
+      friendly_name: "Distance to Trailer"
+      value_template: "{{(distance('person.scott_jeffers', 'person.trailer')) | round(2)}}" 
+      attribute_templates:
+          name: "Trailer"
+          location: " {{ states('person.trailer') }}"
+          gps_accuracy: "{{ state_attr('person.trailer','gps_accuracy') }}"
+          source: "{{ state_attr('person.trailer','source') }}"
+          entity_picture: "{{ state_attr('person.trailer','entity_picture') }}"
+    distance_to_scott_jolly:
+      unit_of_measurement: mi
+      friendly_name: "Distance to Jolly"
+      value_template: "{{(distance('person.scott_jeffers', 'person.scott_jolley')) | round(2)}}" 
+      attribute_templates:
+          location: " {{ states('person.scott_jolley') }}"
+          gps_accuracy: "{{ state_attr('person.scott_jolley','gps_accuracy') }}"
+          source: "{{ state_attr('person.scott_jolley','source') }}"
+          entity_picture: "{{ state_attr('person.scott_jolley','entity_picture') }}"
+    distance_to_tawaha:
+      unit_of_measurement: mi
+      friendly_name: "Distance to Tawaha"
+      value_template: "{{(distance('person.scott_jeffers', 'person.tawaha_swihart')) | round(2)}}" 
+      attribute_templates:
+          name: "Tawaha"
+          location: " {{ states('person.tawaha_swihart') }}"
+          gps_accuracy: "{{ state_attr('person.tawaha_swihart','gps_accuracy') }}"
+          source: "{{ state_attr('person.tawaha_swihart','source') }}"
+          entity_picture: "{{ state_attr('person.tawaha_swihart','entity_picture') }}"
+    distance_to_sauaiwa:
+      unit_of_measurement: mi
+      friendly_name: "Distance to Sauaiwa"
+      value_template: "{{(distance('person.scott_jeffers', 'person.sauaiwa_swihart')) | round(2)}}" 
+      attribute_templates:
+          name: "Sauaiwa"
+          location: " {{ states('person.sauaiwa_swihart') }}"
+          gps_accuracy: "{{ state_attr('person.sauaiwa_swihart','gps_accuracy') }}"
+          source: "{{ state_attr('person.sauaiwa_swihart','source') }}"
+          entity_picture: "{{ state_attr('person.sauaiwa_swihart','entity_picture') }}"
+    distance_to_terri:
+      unit_of_measurement: mi
+      friendly_name: "Distance to Terri"
+      value_template: "{{(distance('person.scott_jeffers', 'person.terri_wooten')) | round(2)}}" 
+      attribute_templates:
+          name: "Terri"
+          location: " {{ states('person.terri_wooten') }}"
+          gps_accuracy: "{{ state_attr('person.terri_wooten','gps_accuracy') }}"
+          source: "{{ state_attr('person.terri_wooten','source') }}"
+          entity_picture: "{{ state_attr('person.terri_wooten','entity_picture') }}"
+    distance_mark_to_haley:
+      unit_of_measurement: mi
+      friendly_name: "Mark's Distance to Haley"
+      value_template: "{{(distance('person.mark_murphy', 'person.haley_gainey')) | round(2)}}" 
+      attribute_templates:
+          haley_location: " {{ states('person.haley_gainey') }}"
+          haley_gps_accuracy: "{{ state_attr('person.haley_gainey','gps_accuracy') }}"
+          haley_source: "{{ state_attr('person.haley_gainey','source') }}"
+          mark_location: " {{ states('person.mark_murphy') }}"
+          mark_gps_accuracy: "{{ state_attr('person.mark_murphy','gps_accuracy') }}"
+          mark_source: "{{ state_attr('person.mark_murphy','source') }}"

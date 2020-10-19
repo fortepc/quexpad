@@ -1,0 +1,47 @@
+turnon_plexremote:
+  alias: Turn on Plex Remote Access
+  sequence:
+  - data: {}
+    service: rest_command.plex_turn_on_remoteaccess
+turnoff_plexremote:
+  alias: Turn off Plex Remote Access
+  sequence:
+  - data: {}
+    service: rest_command.plex_turn_off_remoteaccess
+restart_homeassistant:
+  alias: Restart Home Assistant
+  sequence:
+  - data:
+      entity_id: media_player.group_ceiling
+      message: Home Assistant Is Scheduled to Restart in 30 Seconds
+    service: tts.cloud_say
+  - delay: 00:00:30
+  - data:
+      service: homeassistant.restart
+    service: config_check.run
+restart_plex:
+  alias: Restart Plex
+  sequence:
+  - data:
+      addon: a0d7b954_plex
+    service: hassio.addon_restart
+lockdown:
+  alias: Lock Down
+  sequence:
+  - data:
+      entity_id:
+      - lock.backdoor_deadbolt
+      - lock.frontdoor_deadbolt
+    service: lock.lock
+zwave_heal:
+  alias: Z-Wave Heal
+  sequence:
+  - service: zwave.heal_network
+panic_alarm:
+  sequence:
+  - data:
+      code: !secret house_alarm_code
+      entity_id: alarm_control_panel.quexpad_alarm
+    service: alarm_control_panel.alarm_disarm
+  - entity_id: alarm_control_panel.quexpad_alarm
+    service: alarm_control_panel.alarm_trigger

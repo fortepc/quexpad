@@ -1,0 +1,29 @@
+- platform: mqtt
+  name: "Bedroom Closet Light"
+  state_topic: "stat/bedroom_closet/RESULT"  
+  value_template: "{{ value_json.POWER }}"
+  command_topic: "cmnd/bedroom_closet/POWER"
+  payload_on: "ON"
+  payload_off: "OFF"
+  availability_topic: "tele/bedroom_closet/LWT"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  qos: 1
+  retain: false
+- platform: mqtt
+  name: "Bathroom Cubby"
+  state_topic: "stat/bathroom_cubby/RESULT"  
+  value_template: "{{ value_json.POWER }}"
+  command_topic: "cmnd/bathroom_cubby/POWER"
+  payload_on: "ON"
+  payload_off: "OFF"
+  availability_topic: "tele/bathroom_cubby/LWT"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  qos: 1
+  retain: false
+- platform: group
+  name: Front Porch Light
+  entities:
+    - light.front_porch_1
+    - light.front_porch_2

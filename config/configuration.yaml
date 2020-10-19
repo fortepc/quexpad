@@ -1,0 +1,61 @@
+homeassistant:
+  customize: !include customize.yaml
+frontend:
+  themes: !include_dir_merge_named themes
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+system_log:
+  fire_event: true
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+alarm_control_panel:
+  - platform: manual_mqtt
+    state_topic: home/alarm
+    code: !secret house_alarm_code
+    command_topic: home/alarm/set
+    pending_time: 30
+    delay_time: 20
+    trigger_time: 4
+    disarmed:
+      trigger_time: 0
+    armed_home:
+      pending_time: 0
+      delay_time: 0
+    triggered:
+      pending_time: 0
+
+device_tracker:
+  - platform: ddwrt
+    host: 192.168.1.1
+    username: !secret myusername
+    password: !secret toggle
+    wireless_only: false
+  - platform: google_maps
+    username: !secret myemail
+
+google:
+  client_id: !secret gcal_client_id
+  client_secret: !secret gcal_client_secret
+
+counter:
+  mark_visits:
+    initial: 0
+    step: 1
+  david_visits:
+    initial: 0
+    step: 1
+
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+light: !include lights.yaml
+switch: !include switches.yaml
+sensor: !include sensors.yaml
+
+streamlabswater:
+  api_key: !secret streamlabswater_apikey

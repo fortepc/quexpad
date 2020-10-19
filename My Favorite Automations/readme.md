@@ -1,0 +1,3 @@
+bootsound.yaml was made using the UI editor, and relies on these files being saved in your www directory. 
+
+upnprouterdata.yaml takes the sensors provided by DDWRT's UPNP sensors, the bytes downloaded/uploaded sensors, and manages some counters and template sensors to keep track of yearly / monthly / daily data in both upload and download. Will later provide the configuration.yaml entries to make it fully work.
