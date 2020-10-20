@@ -1,0 +1,17 @@
+title: Home
+views:
+  - title: Floorplan
+    panel: true
+    cards:
+      - type: picture-elements
+        image: /local/images/quexpad_ver_3/homepage_baseline_.jpg
+        elements:
+          - type: image
+            entity: fan.livingroom_ceilingfan
+            style:
+              top: 47%
+              left: 42%
+            state_image:
+              'off': /local/images/quexpad_ver_3/ceilingfan_off.png
+              'on': >-
+                /local/images/quexpad_ver_3/livingroom_ceiling_fan_nolighthole.gif
